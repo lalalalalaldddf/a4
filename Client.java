@@ -67,14 +67,20 @@ public class Client {
 		 * @param info				stores a value for the label to let the users know to enter the player name
 		 * @param grid				stores a value for the panel for the game board  
 		 */
-		info = new JLabel("Enter your player name...");
-		info.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+		// jFrame에 담을 contentPanel, 여기에 info, main, bottom 추가
+		JPanel contentPanel = new JPanel(new BorderLayout());
+
 		JPanel infoPanel = new JPanel();
-		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.X_AXIS));
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
+		info = new JLabel("Enter your player name...");
+		info.setHorizontalAlignment(JLabel.LEFT);
 		infoPanel.add(info);
+
+		contentPanel.add(infoPanel, BorderLayout.NORTH);
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		mainPanel.add(infoPanel);
 
 		grid = new JPanel();
 		grid.setSize(400, 400);
@@ -107,6 +113,8 @@ public class Client {
 		grid.add(b21);
 		grid.add(b22);
 		mainPanel.add(grid);
+		contentPanel.add(mainPanel, BorderLayout.CENTER);
+
 		/**
 		 * @param bottom			set up the Bottom panel including Submit button
 		 * @param frame				set up the frame
@@ -117,12 +125,12 @@ public class Client {
 		submit = new JButton("Submit");
 		bottom.add(name);
 		bottom.add(submit);
-		mainPanel.add(bottom);
+		contentPanel.add(bottom, BorderLayout.SOUTH);
 		
 		frame.setJMenuBar(menu);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 500);
-		frame.getContentPane().add(mainPanel);
+		frame.getContentPane().add(contentPanel);
 		frame.setVisible(true);
 		moveOfThePlayer = 1;
 		winner = 0;
